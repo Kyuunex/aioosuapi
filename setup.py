@@ -1,8 +1,8 @@
 from distutils.core import setup
 
 setup(
-    name = 'aioosuapi',
-    packages = ['aioosuapi'],
+    name = 'aioosuwebapi',
+    packages = ['aioosuwebapi'],
     version = 'r20190719',
     description = 'Asynchronous osu! api wrapper',
     author = 'Kyuunex',
