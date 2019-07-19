@@ -8,8 +8,8 @@ async def get_contents_in_between(after, before, string):
 
 
 class aioosuwebapi:
-    def __init__(self, token):
-        self.token = token
+    # def __init__(self, token):
+    #     self._token = token
 
     async def raw_request(self, endpoint_category, endpoint, query):
         base_url = "https://osu.ppy.sh/"
