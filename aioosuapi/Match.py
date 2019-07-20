@@ -51,3 +51,4 @@ class MultiplayerScore:
         self.perfect = dict['perfect']
         self.passs = dict['pass']
         self.enabled_mods = dict['enabled_mods']
+        self.mods = dict['enabled_mods']

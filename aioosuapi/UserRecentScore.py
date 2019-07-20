@@ -13,7 +13,8 @@ class UserRecentScore:
         self.countkatu = dict['countkatu']
         self.countgeki = dict['countgeki']
         self.perfect = dict['perfect']
-        self.enabled_mods = Mod(dict['enabled_mods'])
+        self.enabled_mods = dict['enabled_mods']
+        self.mods = Mod(dict['enabled_mods'])
         self.user_id = dict['user_id']
         self.date = dict['date']
         self.rank = dict['rank']
