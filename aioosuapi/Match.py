@@ -1,3 +1,7 @@
+from .Accuracy import Accuracy
+from .Mod import Mod
+from .Score import Score
+
 class Match:
     def __init__(self, dict):
         self.id = dict['match']['match_id']
@@ -34,21 +38,8 @@ class Game:
         return self.beatmap_id
 
 
-class MultiplayerScore:
+class MultiplayerScore(Score):
     def __init__(self, dict):
         self.slot = dict['slot']
         self.team = dict['team']
-        self.user_id = dict['user_id']
-        self.score = dict['score']
-        self.maxcombo = dict['maxcombo']
-        self.rank = dict['rank']
-        self.count50 = dict['count50']
-        self.count100 = dict['count100']
-        self.count300 = dict['count300']
-        self.countmiss = dict['countmiss']
-        self.countgeki = dict['countgeki']
-        self.countkatu = dict['countkatu']
-        self.perfect = dict['perfect']
         self.passs = dict['pass']
-        self.enabled_mods = dict['enabled_mods']
-        self.mods = dict['enabled_mods']
