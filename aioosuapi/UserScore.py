@@ -2,6 +2,7 @@ from .Score import Score
 
 class UserScore(Score):
     def __init__(self, dict):
+        Score.__init__(self, dict)
         self.beatmap_id = dict['beatmap_id']
         self.score_id = dict['score_id']
         self.id = dict['score_id']
