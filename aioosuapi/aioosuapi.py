@@ -10,7 +10,7 @@ import urllib
 from .User import User
 from .Beatmap import Beatmap
 from .Beatmapset import Beatmapset
-from .Score import Score
+from .BeatmapScore import BeatmapScore
 from .UserScore import UserScore
 from .UserRecentScore import UserRecentScore
 from .Match import Match
@@ -62,7 +62,7 @@ class aioosuapi:
         if results:
             scores = []
             for score in results:
-                scores.append(Score(score))
+                scores.append(BeatmapScore(score))
             return scores
         else:
             return None

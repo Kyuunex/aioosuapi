@@ -1,7 +1,7 @@
 from .Accuracy import Accuracy
 from .Mod import Mod
 
-class Score:
+class BeatmapScore:
     def __init__(self, dict):
         self.id = dict['score_id']
         self.score_id = dict['score_id']
