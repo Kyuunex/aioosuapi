@@ -28,6 +28,7 @@ class Beatmap:
         self.version = dict['version']
         self.file_md5 = dict['file_md5']
         self.mode = dict['mode']
+        self.gamemode = Gamemode(dict['mode'])
         self.tags = dict['tags']
         self.favourite_count = dict['favourite_count']
         self.rating = dict['rating']
@@ -45,3 +46,17 @@ class Beatmap:
 
     def __str__(self):
         return "%s - %s [%s]" % (self.artist, self.title, self.version)
+
+
+class Gamemode:
+    def __init__(self, mode_id):
+        gamemodes = [
+            "osu!",
+            "Taiko",
+            "CtB",
+            "osu!mania",
+        ]
+        self.gamemode = gamemodes[int(mode_id)]
+
+    def __str__(self):
+        return self.gamemode

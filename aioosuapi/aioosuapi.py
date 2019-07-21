@@ -1,6 +1,5 @@
 """
 Asynchronous osu! api wrapper
-Just pass in parameters from https://github.com/ppy/osu-api/wiki
 """
 
 
