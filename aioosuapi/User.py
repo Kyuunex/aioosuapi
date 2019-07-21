@@ -25,6 +25,8 @@ class User:
         self.country = dict['country']
         self.total_seconds_played = dict['total_seconds_played']
         self.country_rank = dict['pp_country_rank']
+        self.avatar = "https://a.ppy.sh/%s" % (self.user_id)
+        self.url = "https://osu.ppy.sh/users/%s" % (self.user_id)
         events = []
         for event in dict["events"]:
             events.append(UserEvent(event))

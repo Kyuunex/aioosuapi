@@ -39,6 +39,9 @@ class Beatmap:
         self.max_combo = dict['max_combo']
         self.download_unavailable = dict['download_unavailable']
         self.audio_unavailable = dict['audio_unavailable']
+        self.thumbnail = "https://b.ppy.sh/thumb/%sl.jpg" % (self.beatmapset_id)
+        self.cover = "https://assets.ppy.sh/beatmaps/%s/covers/cover.jpg" % (self.beatmapset_id)
+        self.url = "https://osu.ppy.sh/beatmapsets/%s" % (self.beatmapset_id)
 
     def __str__(self):
         return "%s - %s [%s]" % (self.artist, self.title, self.version)

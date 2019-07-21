@@ -25,6 +25,10 @@ class Beatmapset:
         self.rating = dict['rating']
         self.download_unavailable = dict['download_unavailable']
         self.audio_unavailable = dict['audio_unavailable']
+        self.thumbnail = "https://b.ppy.sh/thumb/%sl.jpg" % (self.beatmapset_id)
+        self.cover = "https://assets.ppy.sh/beatmaps/%s/covers/cover.jpg" % (self.beatmapset_id)
+        self.url = "https://osu.ppy.sh/beatmapsets/%s" % (self.beatmapset_id)
+        self.direct = "osu://dl/%s" % (self.beatmapset_id)
         beatmaps = []
         for beatmap in list:
             beatmaps.append(Beatmap(beatmap))
