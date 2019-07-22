@@ -74,5 +74,61 @@ Use them on methods with the same name. `get_beatmapset` shares the same paramet
 + `events` - A list of `UserEvent` objects.
 
 
+### `UserEvent`:
++ `display_html`
++ `display_text` - Same as above but not in HTML
++ `beatmap_id`
++ `beatmapset_id`
++ `date` - in UTC
++ `epicfactor` - How "epic" this event is supposed to be
++ `id` - ID of the event
 
-I'll write more docs later.
+
+### `Beatmap`:
++ `approved` - 4 = loved, 3 = qualified, 2 = approved, 1 = ranked, 0 = pending, -1 = WIP, -2 = graveyard
++ `submit_date` - date submitted, in UTC
++ `approved_date` - date ranked, in UTC
++ `last_update` - last update date, in UTC
++ `artist`
++ `beatmap_id`
++ `id` - beatmap_id
++ `beatmapset_id`
++ `bpm`
++ `creator`
++ `author` - creator
++ `creator_id`
++ `difficultyrating` - The amount of stars the map would have ingame and on the website
++ `diff_aim`
++ `diff_speed`
++ `diff_size` - Circle size value (CS)
++ `cs` - Circle size value (CS)
++ `diff_overall` - Overall difficulty (OD)
++ `od` - Overall difficulty (OD)
++ `diff_approach` - Approach Rate (AR)
++ `ar` - Approach Rate (AR)
++ `diff_drain` - Health drain (HP)
++ `hp` - Health drain (HP)
++ `hit_length` - seconds from first note to last note not including breaks
++ `source`
++ `genre_id` - 0 = any, 1 = unspecified, 2 = video game, 3 = anime, 4 = rock, 5 = pop, 6 = other, 7 = novelty, 9 = hip hop, 10 = electronic (note that there's no 8)
++ `language_id` - 0 = any, 1 = other, 2 = english, 3 = japanese, 4 = chinese, 5 = instrumental, 6 = korean, 7 = french, 8 = german, 9 = swedish, 10 = spanish, 11 = italian
++ `title` - song name
++ `total_length` - seconds from first note to last note including breaks
++ `version` - difficulty name
++ `file_md5` - md5 hash of the beatmap
++ `mode` - game mode id
++ `gamemode` - game mode name
++ `tags` - Beatmap tags separated by spaces
++ `favourite_count` - Number of times the beatmap was favourited.
++ `rating`
++ `playcount` - Number of times the beatmap was played
++ `passcount` - Number of times the beatmap was passed, completed (the user didn't fail or retry)
++ `count_normal`]
++ `count_slider`
++ `count_spinner`
++ `max_combo` - The maximum combo a user can reach playing this beatmap.
++ `download_unavailable` - If the download for this beatmap is unavailable (old map, etc.)
++ `audio_unavailable` - If the audio for this beatmap is unavailable (DMCA takedown, etc.)
++ `thumbnail` - low res background
++ `cover` - background but cropped, but higher resolution
++ `url` - beatmap url
