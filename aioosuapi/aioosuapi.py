@@ -54,6 +54,13 @@ class aioosuapi:
         else:
             return []
 
+    async def get_beatmap(self, **kwargs):
+        results = await self._raw_request('get_beatmaps', kwargs)
+        if results:
+            return Beatmap(results[0])
+        else:
+            return None
+
     async def get_beatmapsets(self, **kwargs):
         results = await self._raw_request('get_beatmaps', kwargs)
         if results:
