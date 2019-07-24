@@ -1,5 +1,6 @@
 from .MultiplayerGame import MultiplayerGame
 
+
 class Match:
     def __init__(self, dict):
         self.id = dict['match']['match_id']

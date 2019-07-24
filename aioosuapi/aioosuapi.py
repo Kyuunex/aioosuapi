@@ -32,6 +32,18 @@ class aioosuapi:
                 else:
                     return response_json
 
+    async def _group_beatmaps_into_a_set(self, results):
+        beatmapsets_dict = {}
+        for beatmap in results:
+            beatmapset_id = str(beatmap["beatmapset_id"])
+            if not beatmapset_id in beatmapsets_dict:
+                beatmapsets_dict[beatmapset_id] = []
+            beatmapsets_dict[beatmapset_id].append(beatmap)
+        beatmapsets = []
+        for _, beatmapset in beatmapsets_dict.items():
+            beatmapsets.append(beatmapset)
+        return beatmapsets
+
     async def get_beatmaps(self, **kwargs):
         results = await self._raw_request('get_beatmaps', kwargs)
         if results:
@@ -40,12 +52,26 @@ class aioosuapi:
                 beatmaps.append(Beatmap(beatmap))
             return beatmaps
         else:
-            return None
+            return []
+
+    async def get_beatmapsets(self, **kwargs):
+        results = await self._raw_request('get_beatmaps', kwargs)
+        if results:
+            beatmapsets = []
+            for beatmapset in await self._group_beatmaps_into_a_set(results):
+                beatmapsets.append(Beatmapset(beatmapset))
+            return beatmapsets
+        else:
+            return []
 
     async def get_beatmapset(self, **kwargs):
         results = await self._raw_request('get_beatmaps', kwargs)
         if results:
-            return Beatmapset(results)
+            beatmapsets = await self._group_beatmaps_into_a_set(results)
+            if beatmapsets:
+                return Beatmapset(beatmapsets[0])
+            else:
+                None
         else:
             return None
 
@@ -64,7 +90,7 @@ class aioosuapi:
                 scores.append(BeatmapScore(score))
             return scores
         else:
-            return None
+            return []
 
     async def get_user_best(self, **kwargs):
         results = await self._raw_request('get_user_best', kwargs)
@@ -74,7 +100,7 @@ class aioosuapi:
                 scores.append(UserScore(score))
             return scores
         else:
-            return None
+            return []
 
     async def get_user_recent(self, **kwargs):
         results = await self._raw_request('get_user_recent', kwargs)
@@ -84,7 +110,7 @@ class aioosuapi:
                 scores.append(UserRecentScore(score))
             return scores
         else:
-            return None
+            return []
 
     async def get_match(self, **kwargs):
         results = await self._raw_request('get_match', kwargs)

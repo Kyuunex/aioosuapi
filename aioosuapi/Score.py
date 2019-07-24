@@ -1,6 +1,7 @@
 from .Accuracy import Accuracy
 from .Mod import Mod
 
+
 class Score:
     def __init__(self, dict):
         self.user_id = dict['user_id']

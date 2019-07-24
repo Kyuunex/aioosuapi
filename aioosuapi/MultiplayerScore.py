@@ -1,5 +1,6 @@
 from .Score import Score
 
+
 class MultiplayerScore(Score):
     def __init__(self, dict):
         Score.__init__(self, dict)

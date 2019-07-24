@@ -1,5 +1,6 @@
 from .UserEvent import UserEvent
 
+
 class User:
     def __init__(self, dict):
         self.user_id = dict['user_id']

@@ -2,6 +2,7 @@ import hashlib
 from html import unescape
 import re
 
+
 class UserEvent:
     def __init__(self, dict):
         self.display_html = dict['display_html']

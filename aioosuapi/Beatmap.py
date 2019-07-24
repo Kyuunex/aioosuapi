@@ -1,5 +1,6 @@
 from .Gamemode import Gamemode
 
+
 class Beatmap:
     def __init__(self, dict):
         self.approved = dict['approved']
@@ -12,7 +13,7 @@ class Beatmap:
         self.beatmapset_id = dict['beatmapset_id']
         self.bpm = dict['bpm']
         self.creator = dict['creator']
-        self.author = dict['creator']
+        #self.author = dict['creator']
         self.creator_id = dict['creator_id']
         self.difficultyrating = dict['difficultyrating']
         self.diff_aim = dict['diff_aim']
@@ -47,8 +48,11 @@ class Beatmap:
         self.download_unavailable = dict['download_unavailable']
         self.audio_unavailable = dict['audio_unavailable']
         self.thumbnail = "https://b.ppy.sh/thumb/%sl.jpg" % (self.beatmapset_id)
+        self.thumb = "https://assets.ppy.sh/beatmaps/%s/covers/list@2x.jpg" % (self.beatmapset_id)
         self.cover = "https://assets.ppy.sh/beatmaps/%s/covers/cover.jpg" % (self.beatmapset_id)
-        self.url = "https://osu.ppy.sh/beatmapsets/%s" % (self.beatmapset_id)
+        self.url = "https://osu.ppy.sh/beatmaps/%s" % (self.beatmap_id)
+        self.discussion = "https://osu.ppy.sh/beatmapsets/%s/discussion/%s/" % (self.beatmapset_id, self.beatmap_id)
+        self.preview_url = "https://b.ppy.sh/preview/%s.mp3" % (self.beatmapset_id)
 
     def __str__(self):
         return "%s - %s [%s]" % (self.artist, self.title, self.version)

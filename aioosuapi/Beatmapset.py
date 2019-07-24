@@ -13,7 +13,7 @@ class Beatmapset:
         self.beatmapset_id = dict['beatmapset_id']
         self.bpm = dict['bpm']
         self.creator = dict['creator']
-        self.author = dict['creator']
+        #self.author = dict['creator']
         self.creator_id = dict['creator_id']
         self.source = dict['source']
         self.genre_id = dict['genre_id']
@@ -26,8 +26,11 @@ class Beatmapset:
         self.download_unavailable = dict['download_unavailable']
         self.audio_unavailable = dict['audio_unavailable']
         self.thumbnail = "https://b.ppy.sh/thumb/%sl.jpg" % (self.beatmapset_id)
+        self.thumb = "https://assets.ppy.sh/beatmaps/%s/covers/list@2x.jpg" % (self.beatmapset_id)
         self.cover = "https://assets.ppy.sh/beatmaps/%s/covers/cover.jpg" % (self.beatmapset_id)
         self.url = "https://osu.ppy.sh/beatmapsets/%s" % (self.beatmapset_id)
+        self.discussion = "https://osu.ppy.sh/beatmapsets/%s/discussion" % (self.beatmapset_id)
+        self.preview_url = "https://b.ppy.sh/preview/%s.mp3" % (self.beatmapset_id)
         self.direct = "osu://dl/%s" % (self.beatmapset_id)
         beatmaps = []
         for beatmap in list:
