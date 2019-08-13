@@ -11,7 +11,7 @@ class UserEvent:
         self.beatmapset_id = dict['beatmapset_id']
         self.date = dict['date']
         self.epicfactor = dict['epicfactor']
-        self.id = hashlib.md5((self.date+self.beatmapset_id+self.beatmap_id+self.display_html).encode('utf-8')).hexdigest()
+        self.id = hashlib.md5((self.date+self.display_html).encode('utf-8')).hexdigest()
 
     def __str__(self):
         return self.display_text
