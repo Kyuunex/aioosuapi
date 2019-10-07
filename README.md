@@ -2,7 +2,7 @@
 
 Asynchronous osu! api wrapper
 
-Just pass in parameters from https://github.com/ppy/osu-api/wiki
+Not ready for use. I'm just waiting for osu-web api to go public before I work on this.
 
 ### To install type this in terminal: 
 
