@@ -4,7 +4,7 @@
 ```python
 from aioosuapi import aioosuapi
 
-osu = aioosuapi.aioosuapi("your_osu_api_key")
+osu = aioosuapi("your_osu_api_key")
 
 # How to request something
 result = await osu.method_name(parameters_go_here) 

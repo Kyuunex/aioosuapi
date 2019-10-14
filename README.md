@@ -12,7 +12,7 @@ You should also: `pip3 install aiohttp`
 ```python
 from aioosuapi import aioosuapi
 
-osu = aioosuapi.aioosuapi("your_osu_api_key")
+osu = aioosuapi("your_osu_api_key")
 
 result = await osu.get_user(u="1623405") 
 
