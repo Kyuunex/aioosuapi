@@ -1,5 +1,7 @@
 class Mod:
     def __init__(self, bits):
+        if not bits:
+            bits = 0
         number = int(bits)
         # Thanks Ayato_k
         mod_list = ['NF', 'EZ', 'TD', 'HD', 'HR', 'SD', 'DT', 'RX', 'HT', 'NC', 'FL', 'AutoPlay', 'SO', 'AP', 'PF',

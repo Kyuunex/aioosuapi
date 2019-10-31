@@ -13,7 +13,7 @@ class Beatmap:
         self.beatmapset_id = dict['beatmapset_id']
         self.bpm = dict['bpm']
         self.creator = dict['creator']
-        #self.author = dict['creator']
+        self.author = dict['creator']
         self.creator_id = dict['creator_id']
         self.difficultyrating = dict['difficultyrating']
         self.diff_aim = dict['diff_aim']

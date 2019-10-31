@@ -6,7 +6,11 @@ class Gamemode:
             "CtB",
             "osu!mania",
         ]
-        self.gamemode = gamemodes[int(mode_id)]
+        if not mode_id:
+            self.gamemode = ""
+        else:
+            self.gamemode = gamemodes[int(mode_id)]
+            
 
     def __str__(self):
         return self.gamemode
