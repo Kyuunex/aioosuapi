@@ -39,6 +39,7 @@ Use them on methods with the same name. `get_beatmapset` and `get_beatmapsets` s
 + `count100`
 + `count50`
 + `playcount`
++ `play_count`
 + `ranked_score`
 + `total_score`
 + `pp_rank` - Global rank
@@ -67,6 +68,7 @@ Use them on methods with the same name. `get_beatmapset` and `get_beatmapsets` s
 + `beatmapset_id`
 + `date` - in UTC
 + `epicfactor` - How "epic" this event is supposed to be
++ `epic_factor` - Same as above
 + `id` - ID of the event
 
 ### `Beatmap`:
@@ -82,6 +84,7 @@ Use them on methods with the same name. `get_beatmapset` and `get_beatmapsets` s
 + `creator`
 + `creator_id`
 + `difficultyrating` - The amount of stars the map would have ingame and on the website
++ `difficulty_rating` - Same as above
 + `diff_aim`
 + `diff_speed`
 + `diff_size` - Circle size value (CS)
@@ -106,7 +109,9 @@ Use them on methods with the same name. `get_beatmapset` and `get_beatmapsets` s
 + `favourite_count` - Number of times the beatmap was favourited.
 + `rating`
 + `playcount` - Number of times the beatmap was played
++ `play_count` - Same as above
 + `passcount` - Number of times the beatmap was passed, completed (the user didn't fail or retry)
++ `pass_count` - Same as above
 + `count_normal`
 + `count_slider`
 + `count_spinner`

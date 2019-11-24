@@ -2,18 +2,18 @@ from .MultiplayerScore import MultiplayerScore
 
 
 class MultiplayerGame:
-    def __init__(self, dict):
-        self.game_id = dict['game_id']
-        self.start_time = dict['start_time']
-        self.end_time = dict['end_time']
-        self.beatmap_id = dict['beatmap_id']
-        self.play_mode = dict['play_mode']
-        self.match_type = dict['match_type']
-        self.scoring_type = dict['scoring_type']
-        self.team_type = dict['team_type']
-        self.mods = dict['mods']
+    def __init__(self, game):
+        self.game_id = game["game_id"]
+        self.start_time = game["start_time"]
+        self.end_time = game["end_time"]
+        self.beatmap_id = game["beatmap_id"]
+        self.play_mode = game["play_mode"]
+        self.match_type = game["match_type"]
+        self.scoring_type = game["scoring_type"]
+        self.team_type = game["team_type"]
+        self.mods = game["mods"]
         scores = []
-        for score in dict["scores"]:
+        for score in game["scores"]:
             scores.append(MultiplayerScore(score))
         self.scores = scores
 

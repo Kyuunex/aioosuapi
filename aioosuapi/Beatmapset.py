@@ -2,40 +2,40 @@ from .Beatmap import Beatmap
 
 
 class Beatmapset:
-    def __init__(self, list):
-        dict = list[0]
-        self.approved = dict['approved']
-        self.submit_date = dict['submit_date']
-        self.approved_date = dict['approved_date']
-        self.last_update = dict['last_update']
-        self.artist = dict['artist']
-        self.id = dict['beatmapset_id']
-        self.beatmapset_id = dict['beatmapset_id']
-        self.bpm = dict['bpm']
-        self.creator = dict['creator']
-        self.author = dict['creator']
-        self.creator_id = dict['creator_id']
-        self.source = dict['source']
-        self.genre_id = dict['genre_id']
-        self.language_id = dict['language_id']
-        self.title = dict['title']
-        self.total_length = dict['total_length']
-        self.tags = dict['tags']
-        self.favourite_count = dict['favourite_count']
-        self.rating = dict['rating']
-        self.download_unavailable = dict['download_unavailable']
-        self.audio_unavailable = dict['audio_unavailable']
-        self.thumbnail = "https://b.ppy.sh/thumb/%sl.jpg" % (self.beatmapset_id)
-        self.thumb = "https://assets.ppy.sh/beatmaps/%s/covers/list@2x.jpg" % (self.beatmapset_id)
-        self.cover = "https://assets.ppy.sh/beatmaps/%s/covers/cover.jpg" % (self.beatmapset_id)
-        self.url = "https://osu.ppy.sh/beatmapsets/%s" % (self.beatmapset_id)
-        self.discussion = "https://osu.ppy.sh/beatmapsets/%s/discussion" % (self.beatmapset_id)
-        self.preview_url = "https://b.ppy.sh/preview/%s.mp3" % (self.beatmapset_id)
-        self.direct = "osu://dl/%s" % (self.beatmapset_id)
+    def __init__(self, diffs):
+        diff = diffs[0]
+        self.approved = diff["approved"]
+        self.submit_date = diff["submit_date"]
+        self.approved_date = diff["approved_date"]
+        self.last_update = diff["last_update"]
+        self.artist = diff["artist"]
+        self.id = diff["beatmapset_id"]
+        self.beatmapset_id = diff["beatmapset_id"]
+        self.bpm = diff["bpm"]
+        self.creator = diff["creator"]
+        self.author = diff["creator"]
+        self.creator_id = diff["creator_id"]
+        self.source = diff["source"]
+        self.genre_id = diff["genre_id"]
+        self.language_id = diff["language_id"]
+        self.title = diff["title"]
+        self.total_length = diff["total_length"]
+        self.tags = diff["tags"]
+        self.favourite_count = diff["favourite_count"]
+        self.rating = diff["rating"]
+        self.download_unavailable = diff["download_unavailable"]
+        self.audio_unavailable = diff["audio_unavailable"]
+        self.thumbnail = f"https://b.ppy.sh/thumb/{self.beatmapset_id}l.jpg"
+        self.thumb = f"https://assets.ppy.sh/beatmaps/{self.beatmapset_id}/covers/list@2x.jpg"
+        self.cover = f"https://assets.ppy.sh/beatmaps/{self.beatmapset_id}/covers/cover.jpg"
+        self.url = f"https://osu.ppy.sh/beatmapsets/{self.beatmapset_id}"
+        self.discussion = f"https://osu.ppy.sh/beatmapsets/{self.beatmapset_id}/discussion"
+        self.preview_url = f"https://b.ppy.sh/preview/{self.beatmapset_id}.mp3"
+        self.direct = f"osu://dl/{self.beatmapset_id}"
         beatmaps = []
-        for beatmap in list:
+        for beatmap in diffs:
             beatmaps.append(Beatmap(beatmap))
         self.beatmaps = beatmaps
 
     def __str__(self):
-        return "%s - %s (%s)" % (self.artist, self.title, self.creator)
+        return f"{self.artist} - {self.title} ({self.creator})"

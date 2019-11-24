@@ -2,14 +2,14 @@ from .Score import Score
 
 
 class BeatmapScore(Score):
-    def __init__(self, dict):
-        Score.__init__(self, dict)
-        self.id = dict['score_id']
-        self.score_id = dict['score_id']
-        self.username = dict['username']
-        self.date = dict['date']
-        self.pp = dict['pp']
-        self.replay_available = dict['replay_available']
+    def __init__(self, score):
+        Score.__init__(self, score)
+        self.id = score["score_id"]
+        self.score_id = score["score_id"]
+        self.username = score["username"]
+        self.date = score["date"]
+        self.pp = score["pp"]
+        self.replay_available = score["replay_available"]
 
     def __str__(self):
-        return "%s - %spp " % (self.username, self.pp)
+        return f"{self.username} - {self.pp}pp"

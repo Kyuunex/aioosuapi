@@ -22,8 +22,8 @@ class aioosuapi:
         self._base_url = "https://osu.ppy.sh/api/"
 
     async def _raw_request(self, endpoint, parameters):
-        parameters['k'] = self._token
-        url = self._base_url+endpoint+'?'+urllib.parse.urlencode(parameters)
+        parameters["k"] = self._token
+        url = self._base_url+endpoint+"?"+urllib.parse.urlencode(parameters)
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 response_json = await response.json()
@@ -45,7 +45,7 @@ class aioosuapi:
         return beatmapsets
 
     async def get_beatmaps(self, **kwargs):
-        results = await self._raw_request('get_beatmaps', kwargs)
+        results = await self._raw_request("get_beatmaps", kwargs)
         if results:
             beatmaps = []
             for beatmap in results:
@@ -55,14 +55,14 @@ class aioosuapi:
             return []
 
     async def get_beatmap(self, **kwargs):
-        results = await self._raw_request('get_beatmaps', kwargs)
+        results = await self._raw_request("get_beatmaps", kwargs)
         if results:
             return Beatmap(results[0])
         else:
             return None
 
     async def get_beatmapsets(self, **kwargs):
-        results = await self._raw_request('get_beatmaps', kwargs)
+        results = await self._raw_request("get_beatmaps", kwargs)
         if results:
             beatmapsets = []
             for beatmapset in await self._group_beatmaps_into_a_set(results):
@@ -72,25 +72,25 @@ class aioosuapi:
             return []
 
     async def get_beatmapset(self, **kwargs):
-        results = await self._raw_request('get_beatmaps', kwargs)
+        results = await self._raw_request("get_beatmaps", kwargs)
         if results:
             beatmapsets = await self._group_beatmaps_into_a_set(results)
             if beatmapsets:
                 return Beatmapset(beatmapsets[0])
             else:
-                None
+                return None
         else:
             return None
 
     async def get_user(self, **kwargs):
-        results = await self._raw_request('get_user', kwargs)
+        results = await self._raw_request("get_user", kwargs)
         if results:
             return User(results[0])
         else:
             return None
 
     async def get_scores(self, **kwargs):
-        results = await self._raw_request('get_scores', kwargs)
+        results = await self._raw_request("get_scores", kwargs)
         if results:
             scores = []
             for score in results:
@@ -100,7 +100,7 @@ class aioosuapi:
             return []
 
     async def get_user_best(self, **kwargs):
-        results = await self._raw_request('get_user_best', kwargs)
+        results = await self._raw_request("get_user_best", kwargs)
         if results:
             scores = []
             for score in results:
@@ -110,7 +110,7 @@ class aioosuapi:
             return []
 
     async def get_user_recent(self, **kwargs):
-        results = await self._raw_request('get_user_recent', kwargs)
+        results = await self._raw_request("get_user_recent", kwargs)
         if results:
             scores = []
             for score in results:
@@ -120,14 +120,14 @@ class aioosuapi:
             return []
 
     async def get_match(self, **kwargs):
-        results = await self._raw_request('get_match', kwargs)
+        results = await self._raw_request("get_match", kwargs)
         if results:
             return Match(results)
         else:
             return None
 
     async def get_replay(self, **kwargs):
-        results = await self._raw_request('get_replay', kwargs)
+        results = await self._raw_request("get_replay", kwargs)
         if results:
             return Replay(results)
         else:
