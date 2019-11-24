@@ -3,15 +3,14 @@ Asynchronous osu! api wrapper
 """
 
 import aiohttp
-import html
-import json
+
 
 class aioosuwebapi:
     def __init__(self, token):
         self._token = token
         self._base_url = "https://osu.ppy.sh/api/v2/"
         self._headers = {
-            "Authorization": "Bearer %s" % (self._token),
+            "Authorization": f"Bearer {self._token}",
             "Accept": "application/json",
             "Content-Type": "application/json",
         }
@@ -23,13 +22,13 @@ class aioosuwebapi:
                 return response_json
 
     async def get_beatmapset_discussions(self, beatmapset_id):
-        return await self._raw_request('beatmapsets/%s/discussion' % (beatmapset_id))
+        return await self._raw_request(f"beatmapsets/{beatmapset_id}/discussion")
 
     async def get_group_members(self, group_id):
-        return await self._raw_request('groups/%s' % (group_id))
+        return await self._raw_request(f"groups/{group_id}")
 
     async def get_user(self, user_id):
-        return await self._raw_request("users/%s" % (user_id))
+        return await self._raw_request(f"users/{user_id}")
 
     async def get_my_friends(self):
         return await self._raw_request("friends")
