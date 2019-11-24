@@ -35,7 +35,7 @@ class Beatmapset:
         beatmaps = []
         for beatmap in diffs:
             beatmaps.append(Beatmap(beatmap))
-        self.beatmaps = beatmaps
+        self.beatmaps = sorted(beatmaps, key=lambda x: x.difficulty_rating, reverse=False)
 
     def __str__(self):
         return f"{self.artist} - {self.title} ({self.creator})"
