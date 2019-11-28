@@ -103,7 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# pycharm
+# IDE
+.vscode
 .idea
 
 # other
