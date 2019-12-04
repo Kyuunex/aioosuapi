@@ -5,7 +5,6 @@ Asynchronous osu! api wrapper
 # Installation: 
 
 Type this in terminal: `pip3 install git+https://github.com/Kyuunex/aioosuapi.git@v1`  
-You should also: `pip3 install aiohttp`
 
 
 # Quick example:
