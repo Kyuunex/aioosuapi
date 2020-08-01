@@ -41,8 +41,8 @@ class aioosuwebapi:
 
     async def _raw_request(self, endpoint):
         async with aiohttp.ClientSession(headers=self._headers) as session:
-            async with session.get(self._base_url+endpoint) as response:
-                response_json = (await response.json())
+            async with session.get(self._base_url + endpoint) as response:
+                response_json = await response.json()
                 return response_json
 
     async def get_beatmapset_discussions(self, beatmapset_id):
