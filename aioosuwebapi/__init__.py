@@ -10,10 +10,8 @@ class aioosuwebapi:
     def __init__(self, client_id, client_secret):
         self._client_id = client_id
         self._client_secret = client_secret
-        self._token = ""
         self._base_url = "https://osu.ppy.sh/api/v2/"
         self._headers = {
-            "Authorization": f"Bearer {self._token}",
             "Accept": "application/json",
             "Content-Type": "application/json",
         }
@@ -33,7 +31,7 @@ class aioosuwebapi:
                 async with aiohttp.ClientSession() as session:
                     async with session.post("https://osu.ppy.sh/oauth/token", data=payload) as response:
                         response_json = await response.json()
-                        self._token = response_json["access_token"]
+                        self._headers["Authorization"] = f"Bearer {response_json['access_token']}"
                 await asyncio.sleep(response_json["expires_in"])
             except Exception as e:
                 print(e)
