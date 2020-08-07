@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='aioosuwebapi',
     packages=['aioosuwebapi'],
-    version='2.0.0-placeholder.1',
+    version='2.0.0-placeholder.2',
     description='Asynchronous osu! api wrapper',
     author='Kyuunex',
     url='https://github.com/Kyuunex/aioosuapi',
