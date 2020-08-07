@@ -2,7 +2,7 @@
 
 Asynchronous osu! api wrapper
 
-Not ready for use. I'm just waiting for osu-web api to go public before I work on this.
+Somewhat usable but not fully featured. For now, some stuff scrapes some pages.
 
 ### To install type this in terminal: 
 
@@ -13,10 +13,10 @@ Not ready for use. I'm just waiting for osu-web api to go public before I work o
 ```python
 from aioosuwebapi import aioosuwebapi
 
-osuweb = aioosuwebapi("your_osu_api_key")
+osuweb = aioosuwebapi("your_client_id", "your_client_secret")
 
 result = await osuweb.get_user("1623405") 
 
-print(result['name'])
+print(result['username'])
 # Okoratu
 ```
