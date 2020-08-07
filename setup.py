@@ -7,7 +7,7 @@ setup(
     description='Asynchronous osu! api wrapper',
     author='Kyuunex',
     url='https://github.com/Kyuunex/aioosuapi',
-    download_url='https://github.com/Kyuunex/aioosuapi/tarball/2.0.0-placeholder.1',
+    download_url='https://github.com/Kyuunex/aioosuapi/tarball/2.0.0-placeholder.2',
     keywords=['osu', 'api'],
     classifiers=[],
     requires=['aiohttp'],
