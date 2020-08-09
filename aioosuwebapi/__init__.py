@@ -19,8 +19,8 @@ class aioosuwebapi:
         self._session = None
         self._session2 = aiohttp.ClientSession()
 
-        loop = asyncio.get_event_loop()
-        loop.create_task(self._session_maintenance_loop())
+        self._loop = asyncio.get_event_loop()
+        self._loop.create_task(self._session_maintenance_loop())
 
     async def _session_maintenance_loop(self):
         while True:
@@ -50,6 +50,11 @@ class aioosuwebapi:
         response_contents = await response.json()
         if 'error' in response_contents:
             raise ValueError(response_contents['error'])
+
+    async def close(self):
+        await self._session.close()
+        await self._session2.close()
+        self._loop.close()
 
     async def get_user(self, user_id):
         async with self._session.get(self._base_url + f"users/{user_id}") as response:
