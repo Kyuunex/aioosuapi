@@ -20,31 +20,44 @@ class aioosuwebapi:
         self._session2 = aiohttp.ClientSession()
 
         self._loop = asyncio.get_event_loop()
-        self._loop.create_task(self._session_maintenance_loop())
+        self._keepalive_task = self._loop.create_task(self._session_maintenance_loop())
 
     async def _session_maintenance_loop(self):
         while True:
+            # TODO: Get a much better approach on this for the reasoning below.
+            # Unsure about this double try blocks as cancellation could occur in
+            # second try block or in the second except block.
+            # As of now just wrap them in a try-except block to catch both events.
             try:
-                payload = {
-                    "client_id": self._client_id,
-                    "client_secret": self._client_secret,
-                    "grant_type": "client_credentials",
-                    "scope": "public"
-                }
-                async with self._session2.post("https://osu.ppy.sh/oauth/token", data=payload) as response:
-                    response_json = await response.json()
-                    session_headers = {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                        "Authorization": f"Bearer {response_json['access_token']}"
+                try:
+                    payload = {
+                        "client_id": self._client_id,
+                        "client_secret": self._client_secret,
+                        "grant_type": "client_credentials",
+                        "scope": "public"
                     }
-                    if self._session:
-                        await self._session.close()
-                    self._session = aiohttp.ClientSession(headers=session_headers)
-                await asyncio.sleep(response_json["expires_in"])
-            except Exception as e:
-                print(e)
-                await asyncio.sleep(7200)
+                    async with self._session2.post("https://osu.ppy.sh/oauth/token", data=payload) as response:
+                        response_json = await response.json()
+                        session_headers = {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json",
+                            "Authorization": f"Bearer {response_json['access_token']}"
+                        }
+                        if self._session:
+                            await self._session.close()
+                        self._session = aiohttp.ClientSession(headers=session_headers)
+                    await asyncio.sleep(response_json["expires_in"])
+
+                # Another side effect is that if cancellation occurs in try block, the Exception
+                # block will also catch it and will only prints it, making the block endlessly loops.
+                # To counter this, we just return the function.
+                except asyncio.CancelledError:
+                    return
+                except Exception as e:
+                    print(e)
+                    await asyncio.sleep(7200)
+            except asyncio.CancelledError:
+                return
 
     async def _error_handler(self, response):
         response_contents = await response.json()
@@ -52,9 +65,14 @@ class aioosuwebapi:
             raise ValueError(response_contents['error'])
 
     async def close(self):
-        await self._session.close()
+        self._keepalive_task.cancel()
+
+        # If self._session_maintenance_loop fails for any reason, self._session will always be None.
+        # This prevents trying to call .close() if the session isn't initiated yet as it doesn't
+        # exist in NoneType, obviously.
+        if self._session:
+            await self._session.close()
         await self._session2.close()
-        self._loop.close()
 
     async def get_user(self, user_id):
         async with self._session.get(self._base_url + f"users/{user_id}") as response:
