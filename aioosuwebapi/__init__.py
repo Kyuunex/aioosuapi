@@ -66,7 +66,12 @@ class aioosuwebapi:
 
     async def close(self):
         self._keepalive_task.cancel()
-        await self._session.close()
+
+        # If self._session_maintenance_loop fails for any reason, self._session will always be None.
+        # This prevents trying to call .close() if the session isn't initiated yet as they don't
+        # exist in NoneType, obviously.
+        if self._session:
+            await self._session.close()
         await self._session2.close()
 
     async def get_user(self, user_id):
