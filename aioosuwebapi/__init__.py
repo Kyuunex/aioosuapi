@@ -68,7 +68,6 @@ class aioosuwebapi:
         self._keepalive_task.cancel()
         await self._session.close()
         await self._session2.close()
-        self._loop.close()
 
     async def get_user(self, user_id):
         async with self._session.get(self._base_url + f"users/{user_id}") as response:
