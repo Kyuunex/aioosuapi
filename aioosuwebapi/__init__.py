@@ -68,7 +68,7 @@ class aioosuwebapi:
         self._keepalive_task.cancel()
 
         # If self._session_maintenance_loop fails for any reason, self._session will always be None.
-        # This prevents trying to call .close() if the session isn't initiated yet as they don't
+        # This prevents trying to call .close() if the session isn't initiated yet as it doesn't
         # exist in NoneType, obviously.
         if self._session:
             await self._session.close()
