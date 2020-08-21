@@ -74,12 +74,12 @@ class aioosuwebapi:
             await self._session.close()
         await self._session2.close()
 
-    async def get_user(self, user_id):
+    async def get_user_array(self, user_id):
         async with self._session.get(self._base_url + f"users/{user_id}") as response:
             await self._error_handler(response)
             return await response.json()
 
-    async def scrape_beatmapset_discussions(self, beatmapset_id):
+    async def scrape_beatmapset_discussions_array(self, beatmapset_id):
         async with self._session2.get(self._base_url2 + f"beatmapsets/{beatmapset_id}/discussion") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
@@ -100,7 +100,7 @@ class aioosuwebapi:
         else:
             raise ValueError("Endpoint has most likely been changed")
 
-    async def scrape_latest_ranked_beatmapsets(self):
+    async def scrape_latest_ranked_beatmapsets_array(self):
         async with self._session2.get(self._base_url2 + "beatmapsets") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
@@ -113,7 +113,7 @@ class aioosuwebapi:
         results = soup.find(id="json-beatmaps").string.strip()
         return json.loads(results)
 
-    async def scrape_group_members(self, group_id):
+    async def scrape_group_members_array(self, group_id):
         async with self._session2.get(self._base_url2 + f"groups/{group_id}") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
