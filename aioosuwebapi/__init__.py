@@ -74,8 +74,60 @@ class aioosuwebapi:
             await self._session.close()
         await self._session2.close()
 
-    async def get_user_array(self, user_id):
-        async with self._session.get(self._base_url + f"users/{user_id}") as response:
+    async def get_user_array(self, user_id, mode=None):
+        """
+        This endpoint returns the detail of specified user.
+        :param user_id: user's id
+        :param mode: (optional) fruits, mania, osu, taiko
+        :return: A dictionary containing information about a user
+        """
+
+        endpoint = f"users/{user_id}"
+        if mode:
+            endpoint += f"/{mode}"
+
+        async with self._session.get(self._base_url + endpoint) as response:
+            await self._error_handler(response)
+            return await response.json()
+
+    async def get_user_recent_activity_array(self, user_id):
+        """
+        Returns recent activity.
+        :param user_id: user's id
+        :return: User's recent activity.
+        """
+
+        async with self._session.get(self._base_url + f"users/{user_id}/recent_activity") as response:
+            await self._error_handler(response)
+            return await response.json()
+
+    async def get_user_beatmaps_array(self, user_id, beatmap_type):
+        """
+        Returns the beatmaps of specified user.
+        :param user_id: user's id
+        :param beatmap_type: favourite, graveyard, loved, most_played, ranked_and_approved, unranked
+        :return: An array of beatmaps of specified user.
+        """
+
+        async with self._session.get(self._base_url + f"/users/{user_id}/beatmapsets/{beatmap_type}") as response:
+            await self._error_handler(response)
+            return await response.json()
+
+    async def get_user_scores_array(self, user_id, score_type, include_fails=None, mode=None, limit=None, offset=None):
+        """
+        # TODO: consider kwargs here???
+        https://osu.ppy.sh/docs/index.html#get-user-scores
+        :param user_id:
+        :param score_type:
+        :param include_fails:
+        :param mode:
+        :param limit:
+        :param offset:
+        :return: the scores of specified user.
+        """
+        endpoint = f"/users/{user_id}/scores/{score_type}"
+
+        async with self._session.get(self._base_url + endpoint) as response:
             await self._error_handler(response)
             return await response.json()
 
