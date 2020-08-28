@@ -59,10 +59,10 @@ class aioosuwebapi:
             except asyncio.CancelledError:
                 return
 
-    async def _error_handler(self, response):
-        response_contents = await response.json()
-        if 'error' in response_contents:
-            raise ValueError(response_contents['error'])
+    # async def _error_handler(self, response):
+    #     response_contents = await response.json()
+    #     if 'error' in response_contents:
+    #         raise ValueError(response_contents['error'])
 
     async def close(self):
         self._keepalive_task.cancel()
@@ -87,8 +87,10 @@ class aioosuwebapi:
             endpoint += f"/{mode}"
 
         async with self._session.get(self._base_url + endpoint) as response:
-            await self._error_handler(response)
-            return await response.json()
+            response_contents = await response.json()
+            if 'error' in response_contents:
+                return {}
+            return response_contents
 
     async def get_user_recent_activity_array(self, user_id):
         """
@@ -98,8 +100,10 @@ class aioosuwebapi:
         """
 
         async with self._session.get(self._base_url + f"users/{user_id}/recent_activity") as response:
-            await self._error_handler(response)
-            return await response.json()
+            response_contents = await response.json()
+            if 'error' in response_contents:
+                return []
+            return response_contents
 
     async def get_user_beatmaps_array(self, user_id, beatmap_type):
         """
@@ -110,8 +114,10 @@ class aioosuwebapi:
         """
 
         async with self._session.get(self._base_url + f"/users/{user_id}/beatmapsets/{beatmap_type}") as response:
-            await self._error_handler(response)
-            return await response.json()
+            response_contents = await response.json()
+            if 'error' in response_contents:
+                return []
+            return response_contents
 
     async def get_user_scores_array(self, user_id, score_type, include_fails=None, mode=None, limit=None, offset=None):
         """
@@ -128,8 +134,10 @@ class aioosuwebapi:
         endpoint = f"/users/{user_id}/scores/{score_type}"
 
         async with self._session.get(self._base_url + endpoint) as response:
-            await self._error_handler(response)
-            return await response.json()
+            response_contents = await response.json()
+            if 'error' in response_contents:
+                return []
+            return response_contents
 
     async def scrape_beatmapset_discussions_array(self, beatmapset_id):
         async with self._session2.get(self._base_url2 + f"beatmapsets/{beatmapset_id}/discussion") as response:
