@@ -1,4 +1,5 @@
 import hashlib
+import binascii
 from html import unescape
 import re
 
@@ -13,7 +14,7 @@ class UserEvent:
         self.epicfactor = event["epicfactor"]
         self.epic_factor = event["epicfactor"]
         self.id_hex = hashlib.md5((self.date+self.display_html).encode("utf-8")).hexdigest()
-        self.id = int(str("0x"+self.id_hex), 16)
+        self.id = binascii.crc32((self.date+self.display_html).encode("utf-8"))
 
     def __str__(self):
         return self.display_text
