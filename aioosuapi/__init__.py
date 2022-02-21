@@ -20,17 +20,20 @@ class aioosuapi:
     def __init__(self, token):
         self._token = token
         self._base_url = "https://osu.ppy.sh/api/"
+        self._session = aiohttp.ClientSession()
 
     async def _raw_request(self, endpoint, parameters):
         parameters["k"] = self._token
         url = self._base_url+endpoint+"?"+urllib.parse.urlencode(parameters)
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as response:
-                response_json = await response.json()
-                if "error" in response_json:
-                    raise ValueError(response_json["error"])
-                else:
-                    return response_json
+        async with self._session.get(url) as response:
+            response_json = await response.json()
+            if "error" in response_json:
+                raise ValueError(response_json["error"])
+            else:
+                return response_json
+
+    async def close(self):
+        await self._session.close()
 
     async def _group_beatmaps_into_a_set(self, results):
         beatmapsets_dict = {}
