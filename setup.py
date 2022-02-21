@@ -1,13 +1,15 @@
 from distutils.core import setup
 
+VERSION = "1.2.2"
+
 setup(
     name='aioosuapi',
     packages=['aioosuapi'],
-    version='1.2.1',
-    description='Asynchronous osu! api wrapper',
+    version=VERSION,
+    description='An asynchronous osu! API wrapper',
     author='Kyuunex',
     url='https://github.com/Kyuunex/aioosuapi',
-    download_url='https://github.com/Kyuunex/aioosuapi/tarball/1.2.1',
+    download_url=f'https://github.com/Kyuunex/aioosuapi/tarball/{VERSION}',
     keywords=['osu', 'api'],
     classifiers=[],
     install_requires=['aiohttp'],
