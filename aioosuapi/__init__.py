@@ -6,14 +6,14 @@ Asynchronous osu! api wrapper
 import aiohttp
 import urllib
 
-from .User import User
-from .Beatmap import Beatmap
-from .Beatmapset import Beatmapset
-from .BeatmapScore import BeatmapScore
-from .UserScore import UserScore
-from .UserRecentScore import UserRecentScore
-from .Match import Match
-from .Replay import Replay
+from aioosuapi.User import User
+from aioosuapi.Beatmap import Beatmap
+from aioosuapi.Beatmapset import Beatmapset
+from aioosuapi.BeatmapScore import BeatmapScore
+from aioosuapi.UserScore import UserScore
+from aioosuapi.UserRecentScore import UserRecentScore
+from aioosuapi.Match import Match
+from aioosuapi.Replay import Replay
 
 
 class aioosuapi:

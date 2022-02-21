@@ -1,4 +1,4 @@
-from .Gamemode import Gamemode
+from aioosuapi.Gamemode import Gamemode
 
 
 class Beatmap:

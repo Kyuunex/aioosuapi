@@ -1,4 +1,4 @@
-from .UserEvent import UserEvent
+from aioosuapi.UserEvent import UserEvent
 
 
 class User:

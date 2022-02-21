@@ -1,4 +1,4 @@
-from .Score import Score
+from aioosuapi.Score import Score
 
 
 class MultiplayerScore(Score):

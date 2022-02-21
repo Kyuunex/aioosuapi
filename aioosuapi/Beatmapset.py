@@ -1,4 +1,4 @@
-from .Beatmap import Beatmap
+from aioosuapi.Beatmap import Beatmap
 
 
 class Beatmapset:

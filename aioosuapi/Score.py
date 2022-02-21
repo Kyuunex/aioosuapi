@@ -1,5 +1,5 @@
-from .Accuracy import Accuracy
-from .Mod import Mod
+from aioosuapi.Accuracy import Accuracy
+from aioosuapi.Mod import Mod
 
 
 class Score:

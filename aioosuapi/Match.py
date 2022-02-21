@@ -1,4 +1,4 @@
-from .MultiplayerGame import MultiplayerGame
+from aioosuapi.MultiplayerGame import MultiplayerGame
 
 
 class Match:

@@ -1,4 +1,4 @@
-from .MultiplayerScore import MultiplayerScore
+from aioosuapi.MultiplayerScore import MultiplayerScore
 
 
 class MultiplayerGame:
