@@ -48,6 +48,8 @@ class Beatmap:
         self.count_slider = beatmap["count_slider"]
         self.count_spinner = beatmap["count_spinner"]
         self.max_combo = beatmap["max_combo"]
+        self.storyboard = beatmap["storyboard"]
+        self.video = beatmap["video"]
         self.download_unavailable = beatmap["download_unavailable"]
         self.audio_unavailable = beatmap["audio_unavailable"]
         self.thumbnail = f"https://b.ppy.sh/thumb/{self.beatmapset_id}l.jpg"

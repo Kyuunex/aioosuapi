@@ -9,6 +9,7 @@ class UserScore(Score):
         self.id = score["score_id"]
         self.date = score["date"]
         self.pp = score["pp"]
+        self.replay_available = score["replay_available"]
 
     def __str__(self):
         return self.id
