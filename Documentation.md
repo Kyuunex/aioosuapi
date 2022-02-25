@@ -116,6 +116,8 @@ Use them on methods with the same name. `get_beatmapset` and `get_beatmapsets` s
 + `count_slider`
 + `count_spinner`
 + `max_combo` - The maximum combo a user can reach playing this beatmap.
++ `storyboard` - If this beatmap has a storyboard
++ `video` - If this beatmap has a video
 + `download_unavailable` - If the download for this beatmap is unavailable (old map, etc.)
 + `audio_unavailable` - If the audio for this beatmap is unavailable (DMCA takedown, etc.)
 + `thumbnail` - thumbnail old website
