@@ -4,7 +4,7 @@ An asynchronous osu! API wrapper
 
 
 import aiohttp
-import urllib
+import urllib.parse
 
 from aioosuapi.User import User
 from aioosuapi.Beatmap import Beatmap
