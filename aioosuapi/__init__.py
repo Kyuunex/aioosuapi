@@ -1,5 +1,5 @@
 """
-Asynchronous osu! api wrapper
+An asynchronous osu! API wrapper
 """
 
 
