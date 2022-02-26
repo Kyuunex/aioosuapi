@@ -1,12 +1,15 @@
 # aioosuapi
 
-Asynchronous osu! api wrapper
+An asynchronous osu! API wrapper
 
+This branch is for Version 2 of the osu! API. 
 Somewhat usable but not fully featured. For now, some stuff scrapes some pages.
 
-### To install type this in terminal: 
+### Installation: 
 
-`pip3 install git+https://github.com/Kyuunex/aioosuapi.git@v2`
+To install the latest commit, type this in terminal: 
+`pip3 install git+https://github.com/Kyuunex/aioosuapi.git@v2`  
+It's recommended to install a version from the releases section though.
 
 
 # Quick example:

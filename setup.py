@@ -1,13 +1,15 @@
 from distutils.core import setup
 
+VERSION = "2.0.0-dev6"
+
 setup(
     name='aioosuwebapi',
     packages=['aioosuwebapi'],
-    version='2.0.0-placeholder.5',
-    description='Asynchronous osu! api wrapper',
+    version=VERSION,
+    description='An asynchronous osu! API wrapper',
     author='Kyuunex',
     url='https://github.com/Kyuunex/aioosuapi',
-    download_url='https://github.com/Kyuunex/aioosuapi/tarball/2.0.0-placeholder.5',
+    download_url=f'https://github.com/Kyuunex/aioosuapi/tarball/{VERSION}',
     keywords=['osu', 'api'],
     classifiers=[],
     install_requires=['aiohttp'],
