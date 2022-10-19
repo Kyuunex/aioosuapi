@@ -15,6 +15,10 @@ from aioosuapi.UserRecentScore import UserRecentScore
 from aioosuapi.Match import Match
 from aioosuapi.Replay import Replay
 
+from aioosuapi.exceptions import AuthenticationError
+from aioosuapi.exceptions import ConnectionError
+from aioosuapi.exceptions import OtherOsuAPIError
+
 
 class aioosuapi:
     def __init__(self, token):
@@ -25,12 +29,21 @@ class aioosuapi:
     async def _raw_request(self, endpoint, parameters):
         parameters["k"] = self._token
         url = self._base_url+endpoint+"?"+urllib.parse.urlencode(parameters)
-        async with self._session.get(url) as response:
-            response_json = await response.json()
-            if "error" in response_json:
-                raise ValueError(response_json["error"])
-            else:
-                return response_json
+        try:
+            async with self._session.get(url) as response:
+                response_json = await response.json()
+                if (type(response_json) is dict) and (response_json.get("error") is not None):
+                    if response_json["error"] == "Please provide a valid API key.":
+                        raise AuthenticationError("Please provide a valid API key.")
+                    else:
+                        raise OtherOsuAPIError(response_json["error"])
+                else:
+                    return response_json
+        except aiohttp.client_exceptions.ClientConnectorError:
+            raise ConnectionError("Unable to connect to the osu! api server.")
+        except aiohttp.client_exceptions.ContentTypeError:
+            raise ConnectionError("Unable to parse the response while connecting to the osu! api server. "
+                                  "Most likely a Cloudflare html response.")
 
     async def close(self):
         await self._session.close()
