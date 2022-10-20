@@ -20,6 +20,12 @@ class aioosuwebapi:
             "Accept": "application/json",
             "Content-Type": "application/json"
         }
+        self._maintenance_session_payload = {
+            "client_id": self._client_id,
+            "client_secret": self._client_secret,
+            "grant_type": "client_credentials",
+            "scope": "public"
+        }
 
         self._session = None
         self._session2 = aiohttp.ClientSession()
@@ -36,13 +42,8 @@ class aioosuwebapi:
             # As of now just wrap them in a try-except block to catch both events.
             try:
                 try:
-                    payload = {
-                        "client_id": self._client_id,
-                        "client_secret": self._client_secret,
-                        "grant_type": "client_credentials",
-                        "scope": "public"
-                    }
-                    async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token", data=payload) as response:
+                    async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token",
+                                                              data=self._maintenance_session_payload) as response:
                         response_json = await response.json()
                         session_headers = {
                             "Accept": "application/json",
