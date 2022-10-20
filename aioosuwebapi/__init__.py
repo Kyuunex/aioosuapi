@@ -28,7 +28,7 @@ class aioosuwebapi:
         }
 
         self._session = None
-        self._session2 = aiohttp.ClientSession()
+        self._scrape_session = aiohttp.ClientSession()
         self._maintenance_session = aiohttp.ClientSession(headers=self._maintenance_session_headers)
 
         self._loop = asyncio.get_event_loop()
@@ -76,7 +76,7 @@ class aioosuwebapi:
         # exist in NoneType, obviously.
         if self._session:
             await self._session.close()
-        await self._session2.close()
+        await self._scrape_session.close()
 
     async def get_user_array(self, user_id, mode=None):
         """
@@ -144,7 +144,7 @@ class aioosuwebapi:
             return response_contents
 
     async def scrape_beatmapset_discussions_array(self, beatmapset_id):
-        async with self._session2.get(self._base_url2 + f"beatmapsets/{beatmapset_id}/discussion") as response:
+        async with self._scrape_session.get(self._base_url2 + f"beatmapsets/{beatmapset_id}/discussion") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
                 raise ValueError("Connection issues")
@@ -165,7 +165,7 @@ class aioosuwebapi:
             raise ValueError("Endpoint has most likely been changed")
 
     async def scrape_latest_ranked_beatmapsets_array(self):
-        async with self._session2.get(self._base_url2 + "beatmapsets") as response:
+        async with self._scrape_session.get(self._base_url2 + "beatmapsets") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
                 raise ValueError("Connection issues")
@@ -178,7 +178,7 @@ class aioosuwebapi:
         return json.loads(results)
 
     async def scrape_group_members_array(self, group_id):
-        async with self._session2.get(self._base_url2 + f"groups/{group_id}") as response:
+        async with self._scrape_session.get(self._base_url2 + f"groups/{group_id}") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
                 raise ValueError("Connection issues")
