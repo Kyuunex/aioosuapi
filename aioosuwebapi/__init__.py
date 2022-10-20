@@ -16,8 +16,14 @@ class aioosuwebapi:
         self._base_url = "https://osu.ppy.sh/api/v2/"
         self._base_url2 = "https://osu.ppy.sh/"
 
+        self._maintenance_session_headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
         self._session = None
         self._session2 = aiohttp.ClientSession()
+        self._maintenance_session = aiohttp.ClientSession(headers=self._maintenance_session_headers)
 
         self._loop = asyncio.get_event_loop()
         self._keepalive_task = self._loop.create_task(self._session_maintenance_loop())
@@ -36,7 +42,7 @@ class aioosuwebapi:
                         "grant_type": "client_credentials",
                         "scope": "public"
                     }
-                    async with self._session2.post("https://osu.ppy.sh/oauth/token", data=payload) as response:
+                    async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token", data=payload) as response:
                         response_json = await response.json()
                         session_headers = {
                             "Accept": "application/json",
