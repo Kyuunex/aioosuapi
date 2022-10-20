@@ -41,30 +41,27 @@ class aioosuwebapi:
             # second try block or in the second except block.
             # As of now just wrap them in a try-except block to catch both events.
             try:
-                try:
-                    async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token",
-                                                              data=self._maintenance_session_payload) as response:
-                        response_json = await response.json()
-                        session_headers = {
-                            "Accept": "application/json",
-                            "Content-Type": "application/json",
-                            "Authorization": f"Bearer {response_json['access_token']}"
-                        }
-                        if self._session:
-                            await self._session.close()
-                        self._session = aiohttp.ClientSession(headers=session_headers)
-                    await asyncio.sleep(response_json["expires_in"])
+                async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token",
+                                                          data=self._maintenance_session_payload) as response:
+                    response_json = await response.json()
+                    session_headers = {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": f"Bearer {response_json['access_token']}"
+                    }
+                    if self._session:
+                        await self._session.close()
+                    self._session = aiohttp.ClientSession(headers=session_headers)
+                await asyncio.sleep(response_json["expires_in"])
 
-                # Another side effect is that if cancellation occurs in try block, the Exception
-                # block will also catch it and will only prints it, making the block endlessly loops.
-                # To counter this, we just return the function.
-                except asyncio.CancelledError:
-                    return
-                except Exception as e:
-                    print(e)
-                    await asyncio.sleep(7200)
+            # Another side effect is that if cancellation occurs in try block, the Exception
+            # block will also catch it and will only prints it, making the block endlessly loops.
+            # To counter this, we just return the function.
             except asyncio.CancelledError:
                 return
+            except Exception as e:
+                print(e)
+                await asyncio.sleep(7200)
 
     # async def _error_handler(self, response):
     #     response_contents = await response.json()
