@@ -76,6 +76,7 @@ class aioosuwebapi:
         # exist in NoneType, obviously.
         if self._session:
             await self._session.close()
+        await self._maintenance_session.close()
         await self._scrape_session.close()
 
     async def get_user_array(self, user_id, mode=None):
