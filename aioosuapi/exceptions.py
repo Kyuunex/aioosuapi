@@ -4,7 +4,7 @@ class AuthenticationError(Exception):
         pass
 
 
-class ConnectionError(Exception):
+class HTTPException(Exception):
     """ Connection Error. """
     def __init__(self, *args, **kwargs):
         pass

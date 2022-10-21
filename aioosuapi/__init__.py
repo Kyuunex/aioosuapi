@@ -16,7 +16,7 @@ from aioosuapi.Match import Match
 from aioosuapi.Replay import Replay
 
 from aioosuapi.exceptions import AuthenticationError
-from aioosuapi.exceptions import ConnectionError
+from aioosuapi.exceptions import HTTPException
 from aioosuapi.exceptions import OtherOsuAPIError
 
 
@@ -40,10 +40,10 @@ class aioosuapi:
                 else:
                     return response_json
         except aiohttp.client_exceptions.ClientConnectorError:
-            raise ConnectionError("Unable to connect to the osu! api server.")
+            raise HTTPException("Unable to connect to the osu! api server.")
         except aiohttp.client_exceptions.ContentTypeError:
-            raise ConnectionError("Unable to parse the response while connecting to the osu! api server. "
-                                  "Most likely a Cloudflare html response.")
+            raise HTTPException("Unable to parse the response while connecting to the osu! api server. "
+                                "Most likely a Cloudflare html response.")
 
     async def close(self):
         await self._session.close()
