@@ -14,7 +14,6 @@ class aioosuwebapi:
         self._client_secret = client_secret
 
         self._base_url = "https://osu.ppy.sh/api/v2/"
-        self._base_url2 = "https://osu.ppy.sh/"
 
         self._maintenance_session_headers = {
             "Accept": "application/json",
@@ -28,7 +27,6 @@ class aioosuwebapi:
         }
 
         self._session = None
-        self._scrape_session = aiohttp.ClientSession()
         self._maintenance_session = aiohttp.ClientSession(headers=self._maintenance_session_headers)
 
         self._loop = asyncio.get_event_loop()
@@ -77,7 +75,6 @@ class aioosuwebapi:
         if self._session:
             await self._session.close()
         await self._maintenance_session.close()
-        await self._scrape_session.close()
 
     async def get_user_array(self, user_id, mode=None):
         """
@@ -144,8 +141,17 @@ class aioosuwebapi:
                 return []
             return response_contents
 
+
+class aioosuwebscraper:
+    def __init__(self):
+        self._base_url = "https://osu.ppy.sh/"
+        self._scrape_session = aiohttp.ClientSession()
+
+    async def close(self):
+        await self._scrape_session.close()
+
     async def scrape_beatmapset_discussions_array(self, beatmapset_id):
-        async with self._scrape_session.get(self._base_url2 + f"beatmapsets/{beatmapset_id}/discussion") as response:
+        async with self._scrape_session.get(self._base_url + f"beatmapsets/{beatmapset_id}/discussion") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
                 raise ValueError("Connection issues")
@@ -166,7 +172,7 @@ class aioosuwebapi:
             raise ValueError("Endpoint has most likely been changed")
 
     async def scrape_latest_ranked_beatmapsets_array(self):
-        async with self._scrape_session.get(self._base_url2 + "beatmapsets") as response:
+        async with self._scrape_session.get(self._base_url + "beatmapsets") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
                 raise ValueError("Connection issues")
@@ -179,7 +185,7 @@ class aioosuwebapi:
         return json.loads(results)
 
     async def scrape_group_members_array(self, group_id):
-        async with self._scrape_session.get(self._base_url2 + f"groups/{group_id}") as response:
+        async with self._scrape_session.get(self._base_url + f"groups/{group_id}") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
                 raise ValueError("Connection issues")
