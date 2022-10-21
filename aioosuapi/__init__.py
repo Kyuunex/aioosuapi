@@ -24,7 +24,13 @@ class aioosuapi:
     def __init__(self, token):
         self._token = token
         self._base_url = "https://osu.ppy.sh/api/"
-        self._session = aiohttp.ClientSession()
+
+        self._session_headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
+        self._session = aiohttp.ClientSession(headers=self._session_headers)
 
     async def _raw_request(self, endpoint, parameters):
         parameters["k"] = self._token
