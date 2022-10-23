@@ -7,6 +7,10 @@ import asyncio
 import json
 from bs4 import BeautifulSoup
 
+from aioosuwebapi.exceptions import AuthenticationError
+from aioosuwebapi.exceptions import HTTPException
+from aioosuwebapi.exceptions import OtherOsuAPIError
+
 
 class aioosuwebapi:
     def __init__(self, client_id, client_secret):
@@ -154,7 +158,7 @@ class aioosuwebscraper:
         async with self._scrape_session.get(self._base_url + f"beatmapsets/{beatmapset_id}/discussion") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
-                raise ValueError("Connection issues")
+                raise HTTPException("Connection issues")
 
         if "json-beatmapset-discussion" in response_contents:
             soup = BeautifulSoup(response_contents, "html.parser")
@@ -169,16 +173,16 @@ class aioosuwebscraper:
                 }
             }
         else:
-            raise ValueError("Endpoint has most likely been changed")
+            raise OtherOsuAPIError("Endpoint has most likely been changed")
 
     async def scrape_latest_ranked_beatmapsets_array(self):
         async with self._scrape_session.get(self._base_url + "beatmapsets") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
-                raise ValueError("Connection issues")
+                raise HTTPException("Connection issues")
 
         if not "json-beatmaps" in response_contents:
-            raise ValueError("Endpoint has most likely been changed")
+            raise OtherOsuAPIError("Endpoint has most likely been changed")
 
         soup = BeautifulSoup(response_contents, "html.parser")
         results = soup.find(id="json-beatmaps").string.strip()
@@ -188,10 +192,10 @@ class aioosuwebscraper:
         async with self._scrape_session.get(self._base_url + f"groups/{group_id}") as response:
             response_contents = await response.text()
             if len(response_contents) < 5:
-                raise ValueError("Connection issues")
+                raise HTTPException("Connection issues")
 
         if not "json-users" in response_contents:
-            raise ValueError("Endpoint has most likely been changed")
+            raise OtherOsuAPIError("Endpoint has most likely been changed")
 
         soup = BeautifulSoup(response_contents, "html.parser")
         result = soup.find(id="json-users").string.strip()
