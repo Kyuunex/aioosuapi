@@ -4,6 +4,7 @@ An asynchronous osu! API wrapper
 
 import aiohttp
 import asyncio
+from aiohttp import client_exceptions
 
 from aioosuwebapi.exceptions import AuthenticationError
 from aioosuwebapi.exceptions import HTTPException
@@ -59,7 +60,7 @@ class aioosuwebapi:
             # To counter this, we just return the function.
             except asyncio.CancelledError:
                 return
-            except Exception as e:
+            except client_exceptions.ClientConnectorError as e:
                 print(e)
                 await asyncio.sleep(7200)
 
