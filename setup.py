@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-VERSION = "2.0.0-dev6"
+VERSION = "2.0.0-dev7"
 
 setup(
     name='aioosuwebapi',
