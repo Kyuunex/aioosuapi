@@ -9,6 +9,7 @@ from aiohttp import client_exceptions
 from aioosuwebapi.exceptions import AuthenticationError
 from aioosuwebapi.exceptions import HTTPException
 from aioosuwebapi.exceptions import OtherOsuAPIError
+from aioosuwebapi.exceptions import NotReady
 
 
 class aioosuwebapi:
@@ -45,6 +46,13 @@ class aioosuwebapi:
                 async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token",
                                                           data=self._maintenance_session_payload) as response:
                     response_json = await response.json()
+
+                    if "error" in response_json:
+                        if response_json["error"] == "unsupported_grant_type":
+                            raise AuthenticationError(response_json["error_description"])
+                        else:
+                            raise OtherOsuAPIError(response_json["error"])
+
                     session_headers = {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
@@ -91,6 +99,9 @@ class aioosuwebapi:
         if mode:
             endpoint += f"/{mode}"
 
+        if not self._session:
+            raise NotReady
+
         async with self._session.get(self._base_url + endpoint) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
@@ -103,6 +114,9 @@ class aioosuwebapi:
         :param user_id: user's id
         :return: User's recent activity.
         """
+
+        if not self._session:
+            raise NotReady
 
         async with self._session.get(self._base_url + f"users/{user_id}/recent_activity") as response:
             response_contents = await response.json()
@@ -117,6 +131,9 @@ class aioosuwebapi:
         :param beatmap_type: favourite, graveyard, loved, most_played, ranked_and_approved, unranked
         :return: An array of beatmaps of specified user.
         """
+
+        if not self._session:
+            raise NotReady
 
         async with self._session.get(self._base_url + f"/users/{user_id}/beatmapsets/{beatmap_type}") as response:
             response_contents = await response.json()
@@ -137,6 +154,9 @@ class aioosuwebapi:
         :return: the scores of specified user.
         """
         endpoint = f"/users/{user_id}/scores/{score_type}"
+
+        if not self._session:
+            raise NotReady
 
         async with self._session.get(self._base_url + endpoint) as response:
             response_contents = await response.json()
