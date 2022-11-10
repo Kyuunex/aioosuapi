@@ -75,7 +75,7 @@ class aioosuwebapi:
     # async def _error_handler(self, response):
     #     response_contents = await response.json()
     #     if 'error' in response_contents:
-    #         raise ValueError(response_contents['error'])
+    #         raise OtherOsuAPIError(response_contents)
 
     async def close(self):
         self._keepalive_task.cancel()
@@ -105,7 +105,7 @@ class aioosuwebapi:
         async with self._session.get(self._base_url + endpoint) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
-                return {}
+                raise OtherOsuAPIError(response_contents)
             return response_contents
 
     async def get_user_recent_activity_array(self, user_id):
@@ -121,7 +121,7 @@ class aioosuwebapi:
         async with self._session.get(self._base_url + f"users/{user_id}/recent_activity") as response:
             response_contents = await response.json()
             if 'error' in response_contents:
-                return []
+                raise OtherOsuAPIError(response_contents)
             return response_contents
 
     async def get_user_beatmaps_array(self, user_id, beatmap_type):
@@ -138,7 +138,7 @@ class aioosuwebapi:
         async with self._session.get(self._base_url + f"/users/{user_id}/beatmapsets/{beatmap_type}") as response:
             response_contents = await response.json()
             if 'error' in response_contents:
-                return []
+                raise OtherOsuAPIError(response_contents)
             return response_contents
 
     async def get_user_scores_array(self, user_id, score_type, include_fails=None, mode=None, limit=None, offset=None):
@@ -161,5 +161,5 @@ class aioosuwebapi:
         async with self._session.get(self._base_url + endpoint) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
-                return []
+                raise OtherOsuAPIError(response_contents)
             return response_contents
