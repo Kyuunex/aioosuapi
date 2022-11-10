@@ -25,13 +25,7 @@ class aioosuwebscraper:
             results = soup.find(id="json-beatmapset-discussion").string.strip()
             return json.loads(results)
         elif "<h1>Page Missing</h1>" in response_contents:
-            # TODO: this should also raise a ValueError
-            # what im doing is very retarded
-            return {
-                "beatmapset": {
-                    "status": "deleted"
-                }
-            }
+            return {}
         else:
             raise OtherOsuAPIError("Endpoint has most likely been changed")
 
