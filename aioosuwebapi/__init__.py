@@ -142,11 +142,10 @@ class aioosuwebapi:
             return response_contents
 
     async def get_user_scores_array(self, user_id, score_type, **kwargs):
-        endpoint = f"users/{user_id}/scores/{score_type}"
-
         while not self._session:
             await asyncio.sleep(0.5)
 
+        endpoint = f"users/{user_id}/scores/{score_type}"
         async with self._session.get(self._base_url + endpoint, params=kwargs) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
