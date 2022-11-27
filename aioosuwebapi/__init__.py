@@ -99,8 +99,8 @@ class aioosuwebapi:
         if mode:
             endpoint += f"/{mode}"
 
-        if not self._session:
-            raise NotReady
+        while not self._session:
+            await asyncio.sleep(0.5)
 
         async with self._session.get(self._base_url + endpoint) as response:
             response_contents = await response.json()
@@ -115,8 +115,8 @@ class aioosuwebapi:
         :return: User's recent activity.
         """
 
-        if not self._session:
-            raise NotReady
+        while not self._session:
+            await asyncio.sleep(0.5)
 
         async with self._session.get(self._base_url + f"users/{user_id}/recent_activity") as response:
             response_contents = await response.json()
@@ -132,8 +132,8 @@ class aioosuwebapi:
         :return: An array of beatmaps of specified user.
         """
 
-        if not self._session:
-            raise NotReady
+        while not self._session:
+            await asyncio.sleep(0.5)
 
         async with self._session.get(self._base_url + f"/users/{user_id}/beatmapsets/{beatmap_type}") as response:
             response_contents = await response.json()
@@ -155,8 +155,8 @@ class aioosuwebapi:
         """
         endpoint = f"/users/{user_id}/scores/{score_type}"
 
-        if not self._session:
-            raise NotReady
+        while not self._session:
+            await asyncio.sleep(0.5)
 
         async with self._session.get(self._base_url + endpoint) as response:
             response_contents = await response.json()
@@ -165,8 +165,8 @@ class aioosuwebapi:
             return response_contents
 
     async def get_beatmapset_discussions_array(self, **kwargs):
-        if not self._session:
-            raise NotReady
+        while not self._session:
+            await asyncio.sleep(0.5)
 
         async with self._session.get(self._base_url + f"beatmapsets/discussions", params=kwargs) as response:
             response_contents = await response.json()
@@ -175,8 +175,8 @@ class aioosuwebapi:
             return response_contents
 
     async def get_beatmapset_discussions_posts_array(self, **kwargs):
-        if not self._session:
-            raise NotReady
+        while not self._session:
+            await asyncio.sleep(0.5)
 
         async with self._session.get(self._base_url + f"beatmapsets/discussions/posts", params=kwargs) as response:
             response_contents = await response.json()
