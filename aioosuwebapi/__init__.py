@@ -87,7 +87,7 @@ class aioosuwebapi:
             await self._session.close()
         await self._maintenance_session.close()
 
-    async def get_user_array(self, user_id, mode=None):
+    async def get_user_array(self, user_id, mode=None, **kwargs):
         """
         This endpoint returns the detail of specified user.
         :param user_id: user's id
@@ -102,13 +102,13 @@ class aioosuwebapi:
         while not self._session:
             await asyncio.sleep(0.5)
 
-        async with self._session.get(self._base_url + endpoint) as response:
+        async with self._session.get(self._base_url + endpoint, params=kwargs) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
                 raise OtherOsuAPIError(response_contents)
             return response_contents
 
-    async def get_user_recent_activity_array(self, user_id):
+    async def get_user_recent_activity_array(self, user_id, **kwargs):
         """
         Returns recent activity.
         :param user_id: user's id
@@ -118,13 +118,13 @@ class aioosuwebapi:
         while not self._session:
             await asyncio.sleep(0.5)
 
-        async with self._session.get(self._base_url + f"users/{user_id}/recent_activity") as response:
+        async with self._session.get(self._base_url + f"users/{user_id}/recent_activity", params=kwargs) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
                 raise OtherOsuAPIError(response_contents)
             return response_contents
 
-    async def get_user_beatmaps_array(self, user_id, beatmap_type):
+    async def get_user_beatmaps_array(self, user_id, beatmap_type, **kwargs):
         """
         Returns the beatmaps of specified user.
         :param user_id: user's id
@@ -135,7 +135,8 @@ class aioosuwebapi:
         while not self._session:
             await asyncio.sleep(0.5)
 
-        async with self._session.get(self._base_url + f"users/{user_id}/beatmapsets/{beatmap_type}") as response:
+        async with self._session.get(self._base_url + f"users/{user_id}/beatmapsets/{beatmap_type}",
+                                     params=kwargs) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
                 raise OtherOsuAPIError(response_contents)
