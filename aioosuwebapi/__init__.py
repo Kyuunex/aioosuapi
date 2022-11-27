@@ -135,7 +135,7 @@ class aioosuwebapi:
         while not self._session:
             await asyncio.sleep(0.5)
 
-        async with self._session.get(self._base_url + f"/users/{user_id}/beatmapsets/{beatmap_type}") as response:
+        async with self._session.get(self._base_url + f"users/{user_id}/beatmapsets/{beatmap_type}") as response:
             response_contents = await response.json()
             if 'error' in response_contents:
                 raise OtherOsuAPIError(response_contents)
@@ -153,7 +153,7 @@ class aioosuwebapi:
         :param offset:
         :return: the scores of specified user.
         """
-        endpoint = f"/users/{user_id}/scores/{score_type}"
+        endpoint = f"users/{user_id}/scores/{score_type}"
 
         while not self._session:
             await asyncio.sleep(0.5)
