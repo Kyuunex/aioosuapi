@@ -142,23 +142,12 @@ class aioosuwebapi:
             return response_contents
 
     async def get_user_scores_array(self, user_id, score_type, include_fails=None, mode=None, limit=None, offset=None):
-        """
-        # TODO: consider kwargs here???
-        https://osu.ppy.sh/docs/index.html#get-user-scores
-        :param user_id:
-        :param score_type:
-        :param include_fails:
-        :param mode:
-        :param limit:
-        :param offset:
-        :return: the scores of specified user.
-        """
         endpoint = f"users/{user_id}/scores/{score_type}"
 
         while not self._session:
             await asyncio.sleep(0.5)
 
-        async with self._session.get(self._base_url + endpoint) as response:
+        async with self._session.get(self._base_url + endpoint, params=kwargs) as response:
             response_contents = await response.json()
             if 'error' in response_contents:
                 raise OtherOsuAPIError(response_contents)
