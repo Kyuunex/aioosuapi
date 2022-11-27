@@ -141,7 +141,7 @@ class aioosuwebapi:
                 raise OtherOsuAPIError(response_contents)
             return response_contents
 
-    async def get_user_scores_array(self, user_id, score_type, include_fails=None, mode=None, limit=None, offset=None):
+    async def get_user_scores_array(self, user_id, score_type, **kwargs):
         endpoint = f"users/{user_id}/scores/{score_type}"
 
         while not self._session:
