@@ -44,7 +44,7 @@ class aioosuwebapi:
             # As of now just wrap them in a try-except block to catch both events.
             try:
                 async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token",
-                                                          data=self._maintenance_session_payload) as response:
+                                                          json=self._maintenance_session_payload) as response:
                     response_json = await response.json()
 
                     if "error" in response_json:
