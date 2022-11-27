@@ -38,10 +38,6 @@ class aioosuwebapi:
 
     async def _session_maintenance_loop(self):
         while True:
-            # TODO: Get a much better approach on this for the reasoning below.
-            # Unsure about this double try blocks as cancellation could occur in
-            # second try block or in the second except block.
-            # As of now just wrap them in a try-except block to catch both events.
             try:
                 async with self._maintenance_session.post("https://osu.ppy.sh/oauth/token",
                                                           json=self._maintenance_session_payload) as response:
@@ -62,12 +58,9 @@ class aioosuwebapi:
                         await self._session.close()
                     self._session = aiohttp.ClientSession(headers=session_headers)
                 await asyncio.sleep(response_json["expires_in"])
-
-            # Another side effect is that if cancellation occurs in try block, the Exception
-            # block will also catch it and will only prints it, making the block endlessly loops.
-            # To counter this, we just return the function.
-            except asyncio.CancelledError:
-                return
+            except asyncio.CancelledError as e:
+                print(e)
+                await asyncio.sleep(7200)
             except client_exceptions.ClientConnectorError as e:
                 print(e)
                 await asyncio.sleep(7200)
