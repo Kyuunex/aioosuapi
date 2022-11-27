@@ -163,3 +163,23 @@ class aioosuwebapi:
             if 'error' in response_contents:
                 raise OtherOsuAPIError(response_contents)
             return response_contents
+
+    async def get_beatmapset_discussions_array(self, **kwargs):
+        if not self._session:
+            raise NotReady
+
+        async with self._session.get(self._base_url + f"beatmapsets/discussions", params=kwargs) as response:
+            response_contents = await response.json()
+            if 'error' in response_contents:
+                raise OtherOsuAPIError(response_contents)
+            return response_contents
+
+    async def get_beatmapset_discussions_posts_array(self, **kwargs):
+        if not self._session:
+            raise NotReady
+
+        async with self._session.get(self._base_url + f"beatmapsets/discussions/posts", params=kwargs) as response:
+            response_contents = await response.json()
+            if 'error' in response_contents:
+                raise OtherOsuAPIError(response_contents)
+            return response_contents
