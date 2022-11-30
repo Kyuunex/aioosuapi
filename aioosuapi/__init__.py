@@ -4,7 +4,6 @@ An asynchronous osu! API wrapper
 
 
 import aiohttp
-import urllib.parse
 
 from aioosuapi.User import User
 from aioosuapi.Beatmap import Beatmap
@@ -34,9 +33,8 @@ class aioosuapi:
 
     async def _raw_request(self, endpoint, parameters):
         parameters["k"] = self._token
-        url = self._base_url+endpoint+"?"+urllib.parse.urlencode(parameters)
         try:
-            async with self._session.get(url) as response:
+            async with self._session.get(self._base_url+endpoint, params=parameters) as response:
                 response_json = await response.json()
                 if (type(response_json) is dict) and (response_json.get("error") is not None):
                     if response_json["error"] == "Please provide a valid API key.":
