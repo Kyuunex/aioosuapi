@@ -4,6 +4,7 @@ An asynchronous osu! API wrapper
 
 
 import aiohttp
+from aiohttp import client_exceptions
 
 from aioosuapi.User import User
 from aioosuapi.Beatmap import Beatmap
@@ -43,9 +44,9 @@ class aioosuapi:
                         raise OtherOsuAPIError(response_json["error"])
                 else:
                     return response_json
-        except aiohttp.client_exceptions.ClientConnectorError:
+        except client_exceptions.ClientConnectorError:
             raise HTTPException("Unable to connect to the osu! api server.")
-        except aiohttp.client_exceptions.ContentTypeError:
+        except client_exceptions.ContentTypeError:
             raise HTTPException("Unable to parse the response while connecting to the osu! api server. "
                                 "Most likely a Cloudflare html response.")
 
