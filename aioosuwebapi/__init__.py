@@ -97,8 +97,14 @@ class aioosuwebapi:
 
         async with self._session.get(self._base_url + endpoint, params=kwargs) as response:
             response_contents = await response.json()
+
             if 'error' in response_contents:
-                raise OtherOsuAPIError(response_contents)
+                if response_contents['error'] is None:
+                    # This happens when user is not found
+                    return None
+                else:
+                    raise OtherOsuAPIError(response_contents)
+
             return response_contents
 
     async def get_user_recent_activity_array(self, user_id, **kwargs):
